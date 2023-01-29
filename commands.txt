@@ -1,3 +1,7 @@
+
+./jenkins/bootstrap/setup.sh
+docker exec -it jenkins sh
+
 gh actions-importer dry-run jenkins --source-url http://localhost:8080/job/test_pipeline --output-dir tmp/dry-run
 gh actions-importer dry-run jenkins --source-url http://localhost:8080/job/test_pipeline --output-dir tmp/dry-run --custom-transformers transformers.rb
 
