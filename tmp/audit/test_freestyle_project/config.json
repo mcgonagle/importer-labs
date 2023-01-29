@@ -1,0 +1,81 @@
+{
+  "project": {
+    "actions": null,
+    "description": null,
+    "keepDependencies": "false",
+    "properties": null,
+    "scm": {
+      "class": "hudson.scm.NullSCM"
+    },
+    "quietPeriod": "5",
+    "assignedNode": "DemoRunner",
+    "canRoam": "false",
+    "disabled": "false",
+    "blockBuildWhenDownstreamBuilding": "false",
+    "blockBuildWhenUpstreamBuilding": "false",
+    "triggers": [
+      {
+        "hudson.triggers.TimerTrigger": {
+          "spec": "H/1 * * * *"
+        }
+      }
+    ],
+    "concurrentBuild": "false",
+    "builders": [
+      {
+        "hudson.tasks.Shell": {
+          "command": "echo \"hello GitHub Actions Importer!\"\nsleep 70",
+          "configuredLocalRules": null
+        }
+      },
+      {
+        "hudson.tasks.Shell": {
+          "command": "echo \"I hope you are enjoying this lab\"",
+          "configuredLocalRules": null
+        }
+      }
+    ],
+    "publishers": [
+      {
+        "hudson.plugins.git.GitPublisher": {
+          "plugin": "git@4.11.4",
+          "configVersion": "2",
+          "pushMerge": "false",
+          "pushOnlyIfSuccess": "false",
+          "forcePush": "false",
+          "tagsToPush": {
+            "hudson.plugins.git.GitPublisher_-TagToPush": {
+              "tagName": "this-important-tag",
+              "tagMessage": null,
+              "createTag": "false",
+              "updateTag": "false"
+            }
+          }
+        }
+      },
+      {
+        "hudson.tasks.Mailer": {
+          "plugin": "mailer@435.v79ef3972b_5c7",
+          "recipients": "mona@github.com",
+          "dontNotifyEveryUnstableBuild": "false",
+          "sendToIndividuals": "true"
+        }
+      }
+    ],
+    "buildWrappers": [
+      {
+        "org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper": {
+          "plugin": "credentials-binding@523.vd859a_4b_122e6",
+          "bindings": [
+            {
+              "org.jenkinsci.plugins.credentialsbinding.impl.StringBinding": {
+                "credentialsId": "${expression}",
+                "variable": "first-var"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "project": {
+    "actions": null,
+    "description": null,
+    "keepDependencies": "false",
+    "properties": null,
+    "scm": {
+      "class": "hudson.scm.NullSCM"
+    },
+    "canRoam": "true",
+    "disabled": "false",
+    "blockBuildWhenDownstreamBuilding": "false",
+    "blockBuildWhenUpstreamBuilding": "false",
+    "triggers": null,
+    "concurrentBuild": "false",
+    "builders": [
+      {
+        "hudson.tasks.Shell": {
+          "command": "echo \"This is from Monas freestyle pipline\"\nsleep 80\necho \"Hope you are enjoying the lab!\"",
+          "configuredLocalRules": null
+        }
+      }
+    ],
+    "publishers": null,
+    "buildWrappers": [
+      {
+        "org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper": {
+          "plugin": "credentials-binding@523.vd859a_4b_122e6",
+          "bindings": [
+            {
+              "org.jenkinsci.plugins.credentialsbinding.impl.StringBinding": {
+                "credentialsId": "${secret.test}",
+                "variable": "EXPRESSION_VAR"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

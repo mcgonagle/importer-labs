@@ -1,0 +1,45 @@
+{
+  "flow-definition": {
+    "plugin": "workflow-job@1207.ve6191ff089f8",
+    "actions": [
+      {
+        "org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction": {
+          "plugin": "pipeline-model-definition@2.2114.v2654ca_721309"
+        }
+      },
+      {
+        "org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction": {
+          "plugin": "pipeline-model-definition@2.2114.v2654ca_721309",
+          "jobProperties": null,
+          "triggers": null,
+          "parameters": null,
+          "options": null
+        }
+      }
+    ],
+    "description": null,
+    "keepDependencies": "false",
+    "properties": [
+      {
+        "org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty": {
+          "triggers": [
+            {
+              "hudson.triggers.SCMTrigger": {
+                "spec": "H(0-29)/10 * * * *",
+                "ignorePostCommitHooks": "false"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "definition": {
+      "class": "org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition",
+      "plugin": "workflow-cps@2759.v87459c4eea_ca_",
+      "script": "pipeline {\n    agent {\n        label 'TeamARunner'\n    }\n\n    environment {\n        DISABLE_AUTH = 'true'\n        DB_ENGINE    = 'sqlite'\n    }\n\n    stages {\n        stage('build') {\n            steps {\n                echo \"Database engine is ${DB_ENGINE}\"\n                sleep 80\n                echo \"DISABLE_AUTH is ${DISABLE_AUTH}\"\n            }\n        }\n        stage('test') {\n            steps{\n                junit '**/target/*.xml' \n            }\n        }\n    }\n}\n",
+      "sandbox": "true"
+    },
+    "triggers": null,
+    "disabled": "false"
+  }
+}

@@ -1,0 +1,2 @@
+Unable to parse Jenkins pipeline. Scripted pipelines are not currently supported.
+Pipeline type: scripted

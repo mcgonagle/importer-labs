@@ -1,0 +1,19 @@
+name: monas_dev_work/monas_pipeline
+on:
+  workflow_dispatch:
+jobs:
+  Hello:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: echo message
+      run: echo Hello World
+#     # This item has no matching transformer
+#     - sleep:
+#       - key: time
+#         value:
+#           isLiteral: true
+#           value: 80
+    - name: echo message
+      run: echo Mona is the best dev <3

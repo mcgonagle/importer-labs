@@ -1,0 +1,40 @@
+name: test_pipeline
+on:
+  push:
+    paths: "*"
+  schedule:
+  - cron: 0-29/10 * * * *
+env:
+  DISABLE_AUTH: 'true'
+  DB_ENGINE: sqlite
+jobs:
+  build:
+    runs-on:
+      - self-hosted
+      - TeamARunner
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: echo message
+      run: echo "Database engine is ${{ env.DB_ENGINE }}"
+#     # This item has no matching transformer
+#     - sleep:
+#       - key: time
+#         value:
+#           isLiteral: true
+#           value: 80
+    - name: echo message
+      run: echo "DISABLE_AUTH is ${{ env.DISABLE_AUTH }}"
+  test:
+    runs-on:
+      - self-hosted
+      - TeamARunner
+    needs: build
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2.3.0
+      if: always()
+      with:
+        junit_files: "**/target/*.xml"

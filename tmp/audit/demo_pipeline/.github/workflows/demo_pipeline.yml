@@ -1,0 +1,56 @@
+name: demo_pipeline
+on:
+  workflow_dispatch:
+env:
+  DISABLE_AUTH: 'true'
+  DB_ENGINE: sqlite
+jobs:
+  Check_Variables:
+    name: Check Variables
+    runs-on:
+      - self-hosted
+      - TeamARunner
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: echo message
+      run: echo "Database engine is ${{ env.DB_ENGINE }}"
+    - name: echo message
+      run: echo "DISABLE_AUTH is ${{ env.DISABLE_AUTH }}"
+  Build:
+    runs-on:
+      - self-hosted
+      - TeamARunner
+    needs: Check_Variables
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3.1.1
+      if: always()
+      with:
+        path: "**/target/*.jar"
+  Test:
+    runs-on:
+      - self-hosted
+      - TeamARunner
+    needs: Build
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2.3.0
+      if: always()
+      with:
+        junit_files: "**/target/*.xml"
+  Deploy:
+    runs-on:
+      - self-hosted
+      - TeamARunner
+    needs: Test
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.3.0
+    - name: sh
+      shell: bash
+      run: make publish

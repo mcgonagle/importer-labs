@@ -1,0 +1,85 @@
+{
+  "org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject": {
+    "plugin": "workflow-multibranch@716.vc692a_e52371b_",
+    "actions": null,
+    "description": null,
+    "properties": null,
+    "folderViews": [
+      {
+        "owner": {
+          "class": "org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject",
+          "reference": "../.."
+        }
+      }
+    ],
+    "healthMetrics": null,
+    "icon": {
+      "class": "jenkins.branch.MetadataActionFolderIcon",
+      "plugin": "branch-api@2.1046.v0ca_37783ecc5",
+      "owner": {
+        "class": "org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject",
+        "reference": "../.."
+      }
+    },
+    "orphanedItemStrategy": {
+      "class": "com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy",
+      "plugin": "cloudbees-folder@6.740.ve4f4ffa_dea_54",
+      "pruneDeadBranches": "true",
+      "daysToKeep": "-1",
+      "numToKeep": "-1",
+      "abortBuilds": "false"
+    },
+    "triggers": [
+      {
+        "com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger": {
+          "plugin": "cloudbees-folder@6.740.ve4f4ffa_dea_54",
+          "spec": "H H/4 * * *",
+          "interval": "86400000"
+        }
+      }
+    ],
+    "disabled": "false",
+    "sources": [
+      {
+        "data": [
+          {
+            "jenkins.branch.BranchSource": {
+              "source": {
+                "class": "jenkins.plugins.git.GitSCMSource",
+                "plugin": "git@4.11.4",
+                "id": "8815f745-ee9a-4b91-b779-dbfc714426fa",
+                "remote": "TestRepo",
+                "credentialsId": null,
+                "traits": [
+                  {
+                    "jenkins.plugins.git.traits.BranchDiscoveryTrait": null
+                  }
+                ]
+              },
+              "strategy": {
+                "class": "jenkins.branch.DefaultBranchPropertyStrategy",
+                "properties": {
+                  "class": "empty-list"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "owner": {
+          "class": "org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject",
+          "reference": "../.."
+        }
+      }
+    ],
+    "factory": {
+      "class": "org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory",
+      "owner": {
+        "class": "org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject",
+        "reference": "../.."
+      },
+      "scriptPath": "Jenkinsfile"
+    }
+  }
+}

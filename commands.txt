@@ -1,0 +1,1 @@
+gh actions-importer migrate jenkins --target-url https://github.com/mcgonagle/monas_repo --output-dir tmp/migrate --source-url http://localhost:8080/job/monas_dev_work/job/monas_freestyle
