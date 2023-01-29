@@ -1,1 +1,5 @@
+gh actions-importer dry-run jenkins --source-url http://localhost:8080/job/test_pipeline --output-dir tmp/dry-run
+gh actions-importer dry-run jenkins --source-url http://localhost:8080/job/test_pipeline --output-dir tmp/dry-run --custom-transformers transformers.rb
+
+
 gh actions-importer migrate jenkins --target-url https://github.com/mcgonagle/monas_repo --output-dir tmp/migrate --source-url http://localhost:8080/job/monas_dev_work/job/monas_freestyle
