@@ -3,13 +3,34 @@
 
 docker exec -it jenkins sh
 
+
+#audit/plan
+gh actions-importer audit jenkins --output-dir tmp/audit
+
+#forecast
+# This command will produce a markdown report that includes the following metrics:
+# Job execution time (total, min, max, median, p90)
+# Job queue time (min, max, median, p90)
+# Job concurrency (min, max, median, p90)
+
+gh actions-importer forecast jenkins --output-dir tmp/forecast --start-date 2022-08-02
+
+
+# dry-run -> and transformation
 gh actions-importer dry-run jenkins --source-url http://localhost:8080/job/test_pipeline --output-dir tmp/dry-run
 gh actions-importer dry-run jenkins --source-url http://localhost:8080/job/test_pipeline --output-dir tmp/dry-run --custom-transformers transformers.rb
 
-
+# migrate from jenkins to actions
 gh actions-importer migrate jenkins --target-url https://github.com/mcgonagle/monas_repo --output-dir tmp/migrate --source-url http://localhost:8080/job/monas_dev_work/job/monas_freestyle
 
+
+
+----
+gh codespace list
+gh codespace ssh
 
 gh pr status
 #gh repo set-default
 
+gh workflow run actions-importer-issue-ops
+gh run list --workflow=issue_ops.yml
